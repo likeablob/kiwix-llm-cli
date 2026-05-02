@@ -47,27 +47,6 @@ kwxlc -h
    kwxlc search "machine learning"
    ```
 
-## Commands Reference
-
-```bash
-kwxlc init [-p PATH]              # Generate config file
-kwxlc list [-f FORMAT]            # List discovered ZIM files
-kwxlc search QUERY [-l LIMIT]     # Full-text search
-kwxlc suggest TERM [-l LIMIT]     # Title suggestion
-kwxlc get TITLE [-f FORMAT]       # Get article (markdown/html/raw)
-kwxlc info                        # Show ZIM file info
-kwxlc install-skills [-a AGENT]   # Install skill for coding agents
-
-kwxlc remote catalog [OPTIONS]    # Search library.kiwix.org
-kwxlc remote download NAME [-o DIR] # Download ZIM file
-
-Options:
-  -c, --config PATH       Config file path
-  -b, --backend {libzim,api}  Backend selection
-  -u, --kiwix-api-url URL     API endpoint URL
-  -z, --zim NAME              ZIM file name/path
-```
-
 ## Skill Installation
 
 Installs SKILL.md for coding agents (default: `.claude/skills`):
@@ -81,6 +60,28 @@ kwxlc install-skills -a opencode
 
 # Both
 kwxlc install-skills -a opencode -a claude-code
+```
+
+## Commands Reference
+
+```bash
+kwxlc init [-p PATH]              # Generate config file
+kwxlc list [-f FORMAT]            # List discovered ZIM files
+kwxlc search QUERY [-l LIMIT]     # Full-text search
+kwxlc suggest TERM [-l LIMIT]     # Title suggestion
+kwxlc get TITLE [-f FORMAT]       # Get article (markdown/html/raw)
+kwxlc info                        # Show ZIM file info
+kwxlc install-skills [-a AGENT]   # Install skill for coding agents
+kwxlc --version                   # Show version
+
+kwxlc remote catalog [OPTIONS]    # Search library.kiwix.org
+kwxlc remote download NAME [-o DIR] # Download ZIM file
+
+Options:
+  -c, --config PATH       Config file path
+  -b, --backend {libzim,api}  Backend selection
+  -u, --kiwix-api-url URL     API endpoint URL
+  -z, --zim NAME              ZIM file name/path
 ```
 
 ## Configuration
