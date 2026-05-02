@@ -8,6 +8,7 @@ from typing import Optional
 
 import httpx
 from rich.console import Console
+from rich.prompt import Confirm
 from rich.table import Table
 
 from . import __version__
@@ -177,6 +178,53 @@ def list_action(args):
                 )
 
             console.print(table)
+
+
+def delete_action(args):
+    """Delete ZIM files."""
+    settings = get_settings(args.config)
+
+    discovered = discover_zim_files(
+        search_dirs=settings.get_search_dirs(),
+        include_cwd=True,
+    )
+
+    if not discovered:
+        console.print("[yellow]No ZIM files found[/yellow]")
+        return
+
+    to_delete = []
+    for name in args.names:
+        if name not in discovered:
+            console.print(f"[red]ZIM file not found: {name}[/red]")
+            sys.exit(1)
+        to_delete.append(name)
+
+    for name in to_delete:
+        info = discovered[name]
+        zim_path = Path(info["path"])
+        size = info.get("filesize", 0)
+
+        if not args.force:
+            console.print(f'\n[bold]Delete "{name}"?[/bold]')
+            console.print(f"  Path: {zim_path}")
+            console.print(f"  Size: {format_size(size)}")
+
+            if settings.default_zim == name:
+                console.print(
+                    f'[yellow]  Warning: "{name}" is set as default_zim in config.[/yellow]'
+                )
+
+            if not Confirm.ask("Proceed?", default=False):
+                console.print(f"[dim]Skipped: {name}[/dim]")
+                continue
+
+        try:
+            zim_path.unlink()
+            console.print(f"[green]Deleted: {name}[/green]")
+        except OSError as e:
+            console.print(f"[red]Failed to delete {name}: {e}[/red]")
+            sys.exit(1)
 
 
 def install_skills_action(args):
@@ -461,6 +509,13 @@ def main():
         "-f", "--format", choices=["table", "json", "simple"], default="table"
     )
     list_parser.set_defaults(func=list_action)
+
+    delete_parser = subparsers.add_parser("delete", help="Delete ZIM files")
+    delete_parser.add_argument("names", nargs="+", help="ZIM file names to delete")
+    delete_parser.add_argument(
+        "-f", "--force", action="store_true", help="Skip confirmation"
+    )
+    delete_parser.set_defaults(func=delete_action)
 
     install_parser = subparsers.add_parser(
         "install-skills", help="Install skill files for coding agents"

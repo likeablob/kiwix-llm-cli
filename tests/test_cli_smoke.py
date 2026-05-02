@@ -33,6 +33,13 @@ def test_list_help():
     assert "--format" in result.stdout
 
 
+def test_delete_help():
+    result = run_kwxlc("delete", "-h")
+    assert result.returncode == 0
+    assert "names" in result.stdout
+    assert "--force" in result.stdout
+
+
 def test_search_help():
     result = run_kwxlc("search", "-h")
     assert result.returncode == 0

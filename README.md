@@ -67,6 +67,7 @@ kwxlc install-skills -a opencode -a claude-code
 ```bash
 kwxlc init [-p PATH]              # Generate config file
 kwxlc list [-f FORMAT]            # List discovered ZIM files
+kwxlc delete NAME [NAME...] [-f]  # Delete ZIM files (use -f to skip confirmation)
 kwxlc search QUERY [-l LIMIT]     # Full-text search
 kwxlc suggest TERM [-l LIMIT]     # Title suggestion
 kwxlc get TITLE [-f FORMAT]       # Get article (markdown/html/raw)
