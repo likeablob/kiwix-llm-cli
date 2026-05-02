@@ -10,6 +10,7 @@ import httpx
 from rich.console import Console
 from rich.table import Table
 
+from . import __version__
 from .config import DEFAULT_CONFIG_FILE, Settings, dump_config
 from .discovery import discover_zim_files
 from .downloader import download_zim, format_size
@@ -429,6 +430,9 @@ def main():
         formatter_class=argparse.RawDescriptionHelpFormatter,
     )
     parser.add_argument("-c", "--config", type=Path, help="Config file path")
+    parser.add_argument(
+        "--version", action="version", version=f"kiwix-llm-cli {__version__}"
+    )
 
     backend_parent = argparse.ArgumentParser(add_help=False)
     backend_parent.add_argument(
