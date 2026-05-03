@@ -54,11 +54,6 @@ def find_zim_file(
         first_name = list(discovered.keys())[0]
         return Path(discovered[first_name]["path"])
 
-    if include_cwd:
-        zim_files = list(Path.cwd().glob("*.zim"))
-        if zim_files:
-            return zim_files[0]
-
     return None
 
 

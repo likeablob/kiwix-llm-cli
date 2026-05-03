@@ -144,6 +144,7 @@ kwxlc search "query" --backend api --kiwix-api-url http://custom:9999
 # Setup
 mise trust
 uv sync --dev
+uv run pre-commit install
 
 # Lint & Format
 uv run ruff check .

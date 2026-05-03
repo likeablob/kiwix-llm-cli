@@ -35,7 +35,5 @@ def test_discover_zim_files_include_cwd(tmp_path: Path, monkeypatch):
 
 def test_extract_zim_name_from_stem():
     path = Path("/some/path/My_Test_File.zim")
-    # Without mocking Archive, it will fail, but we can test the fallback
-    # Just test that stem is processed correctly in the logic
     stem = path.stem.lower().replace(" ", "_").replace("+", "plus")
     assert stem == "my_test_file"
